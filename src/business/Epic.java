@@ -1,20 +1,26 @@
+package business;
+
+import models.enums.Status;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Epic extends Task {
-    protected ArrayList<Integer> subtaskIds;
+    protected List<Integer> subtaskIds;
 
     /*
     Конструктор для эпиков
      */
-    public Epic(int id, String name, String description, String status) {
+
+    public Epic(int id, String name, String description, Status status) {
         super(id, name, description, status);
     }
 
     /*
-    Конструктор для сабтасков
-     */
-    public Epic(String name, String description, String status) {
+            Конструктор для сабтасков
+             */
+    public Epic(String name, String description, Status status) {
         super(name, description, status);
         subtaskIds = new ArrayList<>();
     }
@@ -33,7 +39,7 @@ public class Epic extends Task {
     /*
     получить все номера задач
      */
-    public ArrayList<Integer> getSubtaskIds() {
+    public List<Integer> getSubtaskIds() {
         return subtaskIds;
     }
 
@@ -66,7 +72,7 @@ public class Epic extends Task {
     }
     @Override
     public String toString() {
-        return "Epic{" +
+        return "business.Epic{" +
                 "subtaskIds=" + subtaskIds +
                 '}';
     }

@@ -1,6 +1,14 @@
+package services.manager;
+
+import business.Epic;
+import business.Subtask;
+import business.Task;
+import models.enums.Status;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class TaskManager {
     private final HashMap<Integer, Task> tasks = new HashMap<>();
@@ -10,24 +18,22 @@ public class TaskManager {
     /*
     Получить список всех задач, все задачи.
      */
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> taskArrayList = new ArrayList<>(tasks.values());
-        return taskArrayList;
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks.values());
     }
-    public ArrayList<Subtask> getSubtasks() {
-        ArrayList<Subtask> subtaskArrayList = new ArrayList<>(subtasks.values());
-        return subtaskArrayList;
+    public List<Subtask> getSubtasks() {
+        return new ArrayList<>(subtasks.values());
     }
-    public ArrayList<Epic> getEpics() {
-        ArrayList<Epic> epicArrayList = new ArrayList<>(epics.values());
-        return epicArrayList;
+    public List<Epic> getEpics() {
+        return new ArrayList<>(epics.values());
     }
     public ArrayList<Subtask> getEpicSubtasks(int epicID) {
         ArrayList<Subtask> tasks = new ArrayList<>();
         Epic epic = epics.get(epicID);
         if (epic == null) {
-            return null;
+            System.out.println("Не найдена задача!");
         }
+        assert epic != null;
         for (int id : epic.getSubtaskIds()) {
             tasks.add(subtasks.get(id));
         }
@@ -81,25 +87,25 @@ public class TaskManager {
     }
 
     /*
-    Обновить статус Epic
+    Обновить статус business.Epic
      */
     public void updateEpicStatus(int epicID) {
         Epic epic = epics.get(epicID);// это из эпика вытащили нужный объект эпика который приходит в параметрах
-        HashSet<String> setStatusEpic = new HashSet<>();
+        HashSet<Status> setStatusEpic = new HashSet<>();
         if (epic.getSubtaskIds() == null || epic.getSubtaskIds().isEmpty()) { // проверили если список пуст то установили статус NEW
-            epic.setStatus("NEW"); //статус NEW
+            epic.setStatus(Status.NEW);
             return;
         } else {
             for (Integer i : epic.getSubtaskIds()) {
                 Subtask subtask = subtasks.get(i);
                 setStatusEpic.add(subtask.getStatus());
             }
-            if (setStatusEpic.size() == 1 && setStatusEpic.contains("NEW")) {
-                epic.setStatus("NEW");
-            } else if (setStatusEpic.size() == 1 && setStatusEpic.contains("DONE")) {
-                epic.setStatus("DONE");
+            if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.NEW)) {
+                epic.setStatus(Status.NEW);
+            } else if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.DONE)) {
+                epic.setStatus(Status.DONE);
             } else {
-                epic.setStatus("IN_PROGRESS");
+                epic.setStatus(Status.IN_PROGRESS);
             }
 
         }

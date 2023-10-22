@@ -1,23 +1,28 @@
+package business;
+
+import models.enums.Status;
+
 import java.util.Objects;
 
 public class Task {
     protected int id;
     protected String name;
-    protected String status;
     protected String description;
+    protected Status status;
 
-    public Task(int id, String name, String description, String status) {
+    public Task(int id, String name, String description, Status status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = status;
     }
 
-    public Task(String name, String description, String status) {
+    public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
         this.status = status;
     }
+
     public boolean isEpic() {
         return false;
     }
@@ -38,11 +43,11 @@ public class Task {
         this.name = name;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -76,7 +81,7 @@ public class Task {
     }
     @Override
     public String toString() {
-        return "Task{" +
+        return "business.Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
