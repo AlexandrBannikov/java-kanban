@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class Epic extends Task {
+
+    // Список ID Subtask
     protected List<Integer> subtaskIds;
 
     /*
-    Конструктор для эпиков
+    Конструктор для Epic
      */
 
     public Epic(int id, String name, String description, Status status) {
@@ -18,8 +20,8 @@ public class Epic extends Task {
     }
 
     /*
-            Конструктор для сабтасков
-             */
+    Конструктор для Subtask
+    */
     public Epic(String name, String description, Status status) {
         super(name, description, status);
         subtaskIds = new ArrayList<>();
@@ -70,10 +72,15 @@ public class Epic extends Task {
     public int hashCode() {
         return Objects.hash(super.hashCode(), subtaskIds);
     }
+
     @Override
     public String toString() {
-        return "business.Epic{" +
+        return "Epic{" +
                 "subtaskIds=" + subtaskIds +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

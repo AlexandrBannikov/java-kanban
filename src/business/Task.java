@@ -80,8 +80,8 @@ public class Task {
         return hash;
     }
     @Override
-    public String toString() {
-        return "business.Task{" +
+    public String toString() { // Динамический полиморфизм - вызов переопределенных методов, переопределение методов.
+        return "Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +

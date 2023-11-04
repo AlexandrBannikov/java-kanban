@@ -36,8 +36,12 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "business.Subtask{" +
+        return "Subtask{" +
                 "epicId=" + epicId +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
                 '}';
     }
 }
