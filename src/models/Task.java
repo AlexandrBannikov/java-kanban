@@ -1,6 +1,6 @@
-package business;
+package models;
 
-import models.enums.Status;
+import model.enums.Status;
 
 import java.util.Objects;
 
@@ -81,7 +81,7 @@ public class Task {
     }
     @Override
     public String toString() { // Динамический полиморфизм - вызов переопределенных методов, переопределение методов.
-        return "Task{" +
+        return "Task {" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +

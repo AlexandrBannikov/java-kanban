@@ -1,13 +1,13 @@
-package services.manager;
+package services.history;
 
-import business.Task;
+import models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private List<Task> historyList = new ArrayList<>();
+    private final List<Task> historyList = new ArrayList<>();
 
     @Override
     public void addTask(Task task) {
@@ -19,6 +19,6 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        return historyList;
+        return new ArrayList<>(historyList);
     }
 }

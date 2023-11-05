@@ -1,8 +1,8 @@
-package services.manager;
+package services.taskmanager;
 
-import business.Epic;
-import business.Subtask;
-import business.Task;
+import models.Epic;
+import models.Subtask;
+import models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +26,11 @@ public interface TaskManager {
     /*
     Получить задачу по id
      */
-    Task getTask(int id);
+    Task getTaskById(int id);
 
-    Subtask getSubtask(int id);
+    Subtask getSubtaskById(int id);
 
-    Epic getEpic(int id);
+    Epic getEpicById(int id);
 
     /*
     Добавить задачу в Map
@@ -69,4 +69,5 @@ public interface TaskManager {
 
     void deleteSubtasks();
     List<Task> getHistory();
+
 }

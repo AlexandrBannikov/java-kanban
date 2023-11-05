@@ -1,6 +1,6 @@
-package business;
+package models;
 
-import models.enums.Status;
+import model.enums.Status;
 
 import java.util.Objects;
 
@@ -36,7 +36,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "Subtask {" +
                 "epicId=" + epicId +
                 ", id=" + id +
                 ", name='" + name + '\'' +

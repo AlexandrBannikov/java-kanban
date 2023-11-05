@@ -1,9 +1,10 @@
-package services.manager;
+package services.taskmanager;
 
-import business.Epic;
-import business.Subtask;
-import business.Task;
-import models.enums.Status;
+import models.Epic;
+import models.Subtask;
+import models.Task;
+import model.enums.Status;
+import services.history.HistoryManager;
 import util.Managers;
 
 import java.util.ArrayList;
@@ -66,24 +67,27 @@ public class InMemoryTaskManager implements TaskManager {
     Получить задачу по id
      */
     @Override
-    public Task getTask(int id) {
-        final Task task = tasks.get(id);
-        historyManager.addTask(task);
-        return task;
+    public Task getTaskById(int id) {
+        if (tasks.containsKey(id)) {
+            historyManager.addTask(tasks.get(id));
+            return tasks.get(id);
+        } else return null;
     }
 
     @Override
-    public Subtask getSubtask(int id) {
-        Subtask subtask = subtasks.get(id);
-        historyManager.addTask(subtask);
-        return subtask;
+    public Subtask getSubtaskById(int id) {
+        if (subtasks.containsKey(id)) {
+            historyManager.addTask(subtasks.get(id));
+            return subtasks.get(id);
+        } else return null;
     }
 
     @Override
-    public Epic getEpic(int id) {
-        Epic epic = epics.get(id);
-        historyManager.addTask(epic);
-        return epic;
+    public Epic getEpicById(int id) {
+        if (epics.containsKey(id)) {
+            historyManager.addTask(epics.get(id));
+            return epics.get(id);
+        } else return null;
     }
 
     /*
@@ -193,19 +197,14 @@ public class InMemoryTaskManager implements TaskManager {
             tasks.remove(id);
             System.out.println("task delete...");
         } else if (epics.containsKey(id)) {
-            List<Integer> stList = epics.get(id).getSubtaskIds();
-            if (!stList.isEmpty()) {
-                for (Integer i : stList) {
-                    subtasks.remove(i);
-                    System.out.println("epic delete...");
-                }
+            Epic epic = epics.remove(id);
+            for (Integer subtaskId : epic.getSubtaskIds()) {
+                subtasks.remove(subtaskId);
             }
+            System.out.println("epic delete...");
         } else if (subtasks.containsKey(id)) {
-            int eId = subtasks.get(id).getEpicId();
             subtasks.remove(id);
             System.out.println("subtask delete...");
-            epics.get(eId).removeSubtaskId(id);
-            updateEpicStatus(eId);
         }
     }
 

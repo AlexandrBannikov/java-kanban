@@ -1,6 +1,6 @@
-package business;
+package models;
 
-import models.enums.Status;
+import model.enums.Status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic{" +
+        return "Epic {" +
                 "subtaskIds=" + subtaskIds +
                 ", id=" + id +
                 ", name='" + name + '\'' +

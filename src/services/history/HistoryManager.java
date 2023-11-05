@@ -1,6 +1,6 @@
-package services.manager;
+package services.history;
 
-import business.Task;
+import models.Task;
 
 import java.util.List;
 
