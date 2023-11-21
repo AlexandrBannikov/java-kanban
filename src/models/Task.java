@@ -3,6 +3,10 @@ package models;
 import model.enums.Status;
 
 import java.util.Objects;
+/*
+Объект Task(задача), содержит в себе идентификационный номер, имя, описание, и статус самой задачи.
+Создается через Task task = new Task();
+ */
 
 public class Task {
     protected int id;

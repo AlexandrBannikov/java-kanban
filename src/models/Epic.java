@@ -5,6 +5,10 @@ import model.enums.Status;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+/*
+Объект Epic(основная задача, большая задача) наследуется от Task, наследует его конструктор и содержит
+список Integer своих подзадач.
+ */
 
 public class Epic extends Task {
 
@@ -75,7 +79,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "Epic {" +
+        return "Epic{" +
                 "subtaskIds=" + subtaskIds +
                 ", id=" + id +
                 ", name='" + name + '\'' +
