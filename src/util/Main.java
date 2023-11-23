@@ -1,4 +1,4 @@
-package main;
+package util;
 
 import model.enums.Status;
 import models.Epic;
@@ -7,6 +7,8 @@ import models.Task;
 import services.history.HistoryManager;
 import services.taskmanager.TaskManager;
 import util.Managers;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,12 +49,24 @@ public class Main {
         manager.getEpicById(3);
         manager.getEpicById(3);
         manager.getEpicById(4);
-
-        System.out.println("История просмотра");
         manager.getTasks();
         manager.getEpics();
         manager.getSubtasks();
 
-        System.out.println(historyManager.getHistory());
+        System.out.println("История просмотра до удаления...");
+
+        List<Task> list = historyManager.getHistory();
+        for (Task task : list) {
+            System.out.println(task);
+        }
+        System.out.println();
+        System.out.println("История просмотра после удаления...");
+        manager.deleteTaskById(1);
+        manager.deleteTaskById(3);
+        manager.deleteTaskById(8);
+        List<Task> list1 = historyManager.getHistory();
+        for (Task task : list1) {
+            System.out.println(task);
+        }
     }
 }

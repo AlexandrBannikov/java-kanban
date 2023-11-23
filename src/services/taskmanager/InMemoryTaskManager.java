@@ -5,7 +5,6 @@ import models.Subtask;
 import models.Task;
 import model.enums.Status;
 import services.history.HistoryManager;
-import util.Managers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +26,12 @@ public class InMemoryTaskManager implements TaskManager {
     //способность принимать любого вида объекты и использовать их
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager;
     private int generatorID = 0;
+
+    public InMemoryTaskManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
 
     /*
     Получить список всех задач, Task, Epic, Subtask.
@@ -195,15 +198,18 @@ public class InMemoryTaskManager implements TaskManager {
     public void deleteTaskById(int id) {
         if (tasks.containsKey(id)) {
             tasks.remove(id);
+            historyManager.remove(id);
             System.out.println("task delete...");
         } else if (epics.containsKey(id)) {
             Epic epic = epics.remove(id);
             for (Integer subtaskId : epic.getSubtaskIds()) {
                 subtasks.remove(subtaskId);
+                historyManager.remove(id);
             }
             System.out.println("epic delete...");
         } else if (subtasks.containsKey(id)) {
             subtasks.remove(id);
+            historyManager.remove(id);
             System.out.println("subtask delete...");
         }
     }
