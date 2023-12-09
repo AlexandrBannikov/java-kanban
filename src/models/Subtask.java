@@ -1,47 +1,31 @@
 package models;
 
 import model.enums.Status;
-
-import java.util.Objects;
+import model.enums.TasksType;
 
 public class Subtask extends Task {
-    private final Integer epicId;
+    private int epicId;
 
     public int getEpicId() {
         return epicId;
     }
 
-    public Subtask(int id, String name, String description, Status status, Integer epicId) {
-        super(id, name, description, status);
+    public void setEpicId(int epicId) {
         this.epicId = epicId;
     }
-    public Subtask(String name, String description, Status status, Integer epicId) {
+
+    public Subtask(String name, String description, Status status, int epicId) {
         super(name, description, status);
         this.epicId = epicId;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Subtask subtask = (Subtask) o;
-        return Objects.equals(epicId, subtask.epicId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), epicId);
-    }
-
-    @Override
     public String toString() {
-        return "Subtask {" +
-                "epicId=" + epicId +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return id +
+                "," + TasksType.SUBTASK +
+                "," + name +
+                "," + status +
+                "," + description +
+                "," + epicId;
     }
 }

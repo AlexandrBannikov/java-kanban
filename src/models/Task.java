@@ -1,6 +1,7 @@
 package models;
 
 import model.enums.Status;
+import model.enums.TasksType;
 
 import java.util.Objects;
 /*
@@ -9,29 +10,20 @@ import java.util.Objects;
  */
 
 public class Task {
-    protected int id;
+    protected static int Id;
+    protected Integer id;
     protected String name;
     protected String description;
     protected Status status;
 
-    public Task(int id, String name, String description, Status status) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
 
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
+        this.id = generateId();
         this.status = status;
     }
-
-    public boolean isEpic() {
-        return false;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -62,34 +54,26 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && status == task.status;
+        return Objects.equals(id, task.id) && Objects.equals(name, task.name)
+                && Objects.equals(description, task.description) && status == task.status;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 17;
-        if (name != null) {
-            hash = hash + name.hashCode();
-        }
-        hash *= 31;
-        if (description != null) {
-            hash = hash + description.hashCode();
-        }
-        return hash;
-    }
+
     @Override
     public String toString() { // Динамический полиморфизм - вызов переопределенных методов, переопределение методов.
-        return "Task {" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", status=" + status +
-                '}';
+        return  id +
+                "," + TasksType.TASK +
+                "," + name +
+                "," + status +
+                "," + description;
+    }
+    private int generateId() {
+        Id++;
+        return Id;
     }
 }

@@ -9,6 +9,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     Node last;
     private final Map<Integer, Node> nodeMap = new HashMap<>();
 
+    private List<Integer> history;
+
     @Override
     public void addTask(Task task) {
         if (task == null) {

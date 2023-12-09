@@ -14,7 +14,7 @@ import java.util.List;
      getSubtask() и getEpic(). От повторных просмотров избавляться не нужно.
  */
 
-public interface TaskManager {
+public interface TasksManager {
     /*
     Получить список всех задач, все задачи.
      */
@@ -35,9 +35,9 @@ public interface TaskManager {
     /*
     Добавить задачу в Map
      */
-    int addNewTask(Task task);
+    Task addNewTask(Task task);
 
-    int addNewEpic(Epic epic);
+    Task addNewEpic(Epic epic);
 
     Integer addNewSubtask(Subtask subtask);
 
@@ -56,9 +56,9 @@ public interface TaskManager {
      */
     void deleteTaskById(int id);
 
-//    void deleteEpic(int id);
+    void deleteEpicById(int id);
 //
-//    void deleteSubtask(int id);
+    void deleteSubtaskById(int id);
 
     /*
     Очистить Map, удалить все задачи
