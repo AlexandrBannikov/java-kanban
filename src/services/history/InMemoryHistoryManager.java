@@ -8,7 +8,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     Node first;
     Node last;
     private final Map<Integer, Node> nodeMap = new HashMap<>();
-
     private List<Integer> history;
 
     @Override

@@ -10,7 +10,6 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-
         FileBackedTasksManager manager = new FileBackedTasksManager(new File("resources/file.csv"));
         Task task1 = new Task("Task №1", "Задача №1", Status.NEW);
         Task task2 = new Task("Task №2", "Задача №2", Status.NEW);

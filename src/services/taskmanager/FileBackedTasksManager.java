@@ -118,7 +118,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
         }
         return listResult;
     }
-
     //========================== override ================================================
 
     @Override
