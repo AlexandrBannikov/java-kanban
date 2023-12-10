@@ -20,10 +20,10 @@ import java.util.*;
  */
 
 public class InMemoryTasksManager implements TasksManager {
-    protected final TreeMap<Integer, Task> tasks = new TreeMap<>();// Параметрический полиморфизм
+    protected final HashMap<Integer, Task> tasks = new HashMap<>();// Параметрический полиморфизм
     //способность принимать любого вида объекты и использовать их
-    protected final TreeMap<Integer, Epic> epics = new TreeMap<>();
-    protected final TreeMap<Integer, Subtask> subtasks = new TreeMap<>();
+    protected final HashMap<Integer, Epic> epics = new HashMap<>();
+    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
     final HistoryManager historyManager = Managers.getDefaultHistory();
 
     /*

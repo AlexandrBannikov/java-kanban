@@ -20,9 +20,35 @@ import static java.lang.Integer.parseInt;
 
 public class FileBackedTasksManager extends InMemoryTasksManager {
 
-    File bootFile = new File("resources/file.csv");
+    File bootFile;
     public FileBackedTasksManager(File file) {
         this.bootFile = file;
+    }
+
+    public static void main(String[] args) {
+        FileBackedTasksManager manager = new FileBackedTasksManager(new File("resources/file.csv"));
+        Task task1 = new Task("Task №1", "Задача №1", Status.NEW);
+        Task task2 = new Task("Task №2", "Задача №2", Status.NEW);
+        Task task3 = new Task("Task №3", "Задача №3", Status.NEW);
+        manager.addNewTask(task1);
+        manager.addNewTask(task2);
+        manager.addNewTask(task3);
+        manager.getTaskById(1);
+        manager.getTaskById(2);
+        manager.getTaskById(3);
+        System.out.println(manager.getHistory());
+        Epic epic1 = new Epic("Epic №1", "Большая задача 1", Status.NEW);
+        Epic epic2 = new Epic("Epic №2", "Большая задача 2", Status.NEW);
+        manager.addNewEpic(epic1);
+        manager.addNewEpic(epic2);
+        manager.getEpicById(3);
+        Subtask subtask1 = new Subtask("Subtask №1", "Подзадача №1", Status.NEW, epic1.getId());
+        Subtask subtask2 = new Subtask("Subtask №2", "Подзадача №2", Status.NEW, epic2.getId());
+        manager.addNewSubtask(subtask1);
+        manager.addNewSubtask(subtask2);
+        manager.getSubtaskById(4);
+        manager = FileBackedTasksManager.loadFromFile(new File("resources/file.csv"));
+        System.out.println(manager.getHistory());
     }
 
     private void save() {
@@ -45,7 +71,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             writer.println(historyToString(historyManager));
             writer.close();
         } catch (IOException e) {
-            throw new ManagerSaveException("Файл не сохранен!");
+            throw new ManagerSaveException("Файл не сохранен!" + e.getMessage());
         }
     }
     public static FileBackedTasksManager loadFromFile(File file) {
@@ -77,7 +103,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
             }
             return loadedManager;
         } catch (IOException e) {
-            throw new ManagerSaveException("Ошибка загрузки!");
+            throw new ManagerSaveException("Ошибка загрузки!" + e.getMessage());
         }
     }
     public Task fromString(String string) {
@@ -98,22 +124,29 @@ public class FileBackedTasksManager extends InMemoryTasksManager {
         }
         return null;
     }
-    public String historyToString(HistoryManager manager) { //
+    /*
+    Вот что про в ТЗ написано про методы и параметы.
+
+    Напишите статические методы static String historyToString(HistoryManager manager)
+    и static List<Integer> historyFromString(String value)
+    для сохранения и восстановления менеджера истории из CSV.
+     */
+    static String historyToString(HistoryManager manager) { //
         StringBuilder sb = new StringBuilder();
         for(Task task: manager.getHistory()){
             sb.append(task.getId());
             sb.append(",");
         }
-        if(sb.length() > 0) {
+        if(!sb.isEmpty()) {
             sb.setLength(sb.length() - 1);
         }
         return String.valueOf(sb);
     }
-    public static List<Integer> historyFromString(String str) {
+     static List<Integer> historyFromString(String str) {
         String[] history = str.split(",");
         List<Integer> listResult = new ArrayList<>();
         for (String item: history) {
-            if (item.matches("\\d"))
+            //if (item.matches("\\d"))
                 listResult.add(parseInt(item));
         }
         return listResult;
