@@ -22,6 +22,7 @@ public interface TasksManager {
     List<Subtask> getSubtasks();
     List<Epic> getEpics();
     ArrayList<Subtask> getEpicSubtasks(int epicID);
+    ArrayList<Subtask> getSubtaskOfEpic(Epic epic);
 
     /*
     Получить задачу по id
@@ -35,11 +36,11 @@ public interface TasksManager {
     /*
     Добавить задачу в Map
      */
-    Task addNewTask(Task task);
+    int addNewTask(Task task);
 
-    Task addNewEpic(Epic epic);
+    int addNewEpic(Epic epic);
 
-    Integer addNewSubtask(Subtask subtask);
+    int addNewSubtask(Subtask subtask);
 
     /*
     Обновить статус Epic
