@@ -1,5 +1,7 @@
 id,type,name,status,description,duration,start_time,epic
-1,TASK,Task #1,NEW,Description task,10,2006-01-01T01:00
-2,EPIC,Epic №1,NEW,Big Epic 1,15,2014-02-01T00:30
-3,SUBTASK,Subtask #1,NEW,Description Subtask,15,2014-02-01T00:30,2
-1,2,3
+1,TASK, Task #1, NEW, Description task1, 10, 2006-01-01T01:00
+2,EPIC, Epic №1, NEW, Big Epic 1, 28, 2014-02-01T00:30
+3,SUBTASK, Subtask #1, NEW, Description Subtask#1, 15, 2014-02-01T00:30, 2
+4,SUBTASK, Subtask #2, NEW, Description Subtask#2, 13, 2015-06-01T00:35, 2
+
+1,2,3,4

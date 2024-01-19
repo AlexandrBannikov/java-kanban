@@ -4,7 +4,6 @@ import model.enums.Status;
 import model.enums.TasksType;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 /*
 Объект Task(задача), содержит в себе идентификационный номер, имя, описание, и статус самой задачи.
 Создается через Task task = new Task();
@@ -18,8 +17,6 @@ public class Task implements Comparable<Task> {
     protected Status status;
     protected int duration;
     protected LocalDateTime startTime;
-
-
     public Task(String name, String description, Status status) {
         this.name = name;
         this.description = description;
@@ -27,7 +24,6 @@ public class Task implements Comparable<Task> {
         this.status = status;
         this.startTime = LocalDateTime.of(1970,1,1,0,0);
     }
-
     public Task(String name, String description, Status status, int duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
@@ -36,43 +32,33 @@ public class Task implements Comparable<Task> {
         this.duration = duration;
         this.startTime = startTime;
     }
-
     public void setDuration(int duration) {
         this.duration = duration;
     }
-
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
-
     public Integer getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Status getStatus() {
         return status;
     }
-
     public void setStatus(Status status) {
         this.status = status;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -90,11 +76,11 @@ public class Task implements Comparable<Task> {
     public String toString() { // Динамический полиморфизм - вызов переопределенных методов, переопределение методов.
         return  id +
                 "," + TasksType.TASK +
-                "," + name +
-                "," + status +
-                "," + description +
-                "," + duration +
-                "," + startTime.toString();
+                ", " + name +
+                ", " + status +
+                ", " + description +
+                ", " + duration +
+                ", " + startTime.toString();
     }
     private int generateId() {
         Id++;

@@ -30,12 +30,12 @@ public class Subtask extends Task {
     public String toString() {
         return id +
                 "," + TasksType.SUBTASK +
-                "," + name +
-                "," + status +
-                "," + description +
-                "," + duration +
-                "," + startTime +
-                "," + epicId;
+                ", " + name +
+                ", " + status +
+                ", " + description +
+                ", " + duration +
+                ", " + startTime +
+                ", " + epicId;
     }
 
     @Override

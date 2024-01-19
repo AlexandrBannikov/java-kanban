@@ -54,11 +54,11 @@ public class Epic extends Task {
     public String toString() {
         return id +
                 "," + TasksType.EPIC +
-                "," + name +
-                "," + status +
-                "," + description +
-                "," + duration +
-                "," + startTime;
+                ", " + name +
+                ", " + status +
+                ", " + description +
+                ", " + duration +
+                ", " + startTime;
     }
 
     public void setEndTime(LocalDateTime endTime) {
