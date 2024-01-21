@@ -2,7 +2,6 @@ package models;
 
 import model.enums.Status;
 import model.enums.TasksType;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,7 @@ public class Epic extends Task {
     @Override
     public String toString() {
         return id +
-                "," + TasksType.EPIC +
+                "," + TasksType.Epic +
                 ", " + name +
                 ", " + status +
                 ", " + description +
@@ -77,7 +76,7 @@ public class Epic extends Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Epic epic = (Epic) o;
-        return id == epic.id && name.equals(epic.name) && description.equals(epic.description)
+        return Objects.equals(id, epic.id) && name.equals(epic.name) && description.equals(epic.description)
                 && status.equals(epic.status) && Objects.equals(subtaskIds, epic.subtaskIds);
     }
 }

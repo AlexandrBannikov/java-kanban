@@ -10,7 +10,6 @@ import services.taskmanager.TasksManager;
 import util.Managers;
 
 class EpicTest {
-
     public static TasksManager taskManager;
 
     @BeforeEach
@@ -20,58 +19,55 @@ class EpicTest {
 
     @Test
     public void statusDefinitionTestEmptyMapOfSubtasks(){
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
         Assertions.assertTrue(taskManager.getSubtasks().isEmpty());
-        Assertions.assertTrue(epic.getStatus().equals(Status.NEW));
+        Assertions.assertEquals(epic.getStatus(), Status.New);
     }
 
     @Test
     public void statusDefinitionTestAllSubtasksNew(){
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
-        Subtask subtask1 = new Subtask("s1", "s1", Status.NEW, epic.getId());
-        Subtask subtask2 = new Subtask("s2", "s2", Status.NEW, epic.getId());
-        Subtask subtask3 = new Subtask("s3", "s3", Status.NEW, epic.getId());
-        Assertions.assertTrue(epic.getStatus().equals(Status.NEW));
+        Assertions.assertEquals(epic.getStatus(), Status.New);
     }
 
     @Test
     public void statusDefinitionTestAllSubtasksDone(){
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
-        Subtask subtask1 = new Subtask("s1", "s1", Status.DONE, epic.getId());
-        Subtask subtask2 = new Subtask("s2", "s2", Status.DONE, epic.getId());
-        Subtask subtask3 = new Subtask("s3", "s3", Status.DONE, epic.getId());
+        Subtask subtask1 = new Subtask("s1", "s1", Status.Done, epic.getId());
+        Subtask subtask2 = new Subtask("s2", "s2", Status.Done, epic.getId());
+        Subtask subtask3 = new Subtask("s3", "s3", Status.Done, epic.getId());
         taskManager.addNewSubtask(subtask1);
         taskManager.addNewSubtask(subtask2);
         taskManager.addNewSubtask(subtask3);
-        Assertions.assertTrue(epic.getStatus().equals(Status.DONE));
+        Assertions.assertEquals(epic.getStatus(), Status.Done);
     }
 
     @Test
     public void statusDefinitionTestDifferentSubtaskStatuses(){
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
-        Subtask subtask1 = new Subtask("s1", "s1", Status.DONE, epic.getId());
-        Subtask subtask2 = new Subtask("s2", "s2", Status.NEW, epic.getId());
-        Subtask subtask3 = new Subtask("s3", "s3", Status.DONE, epic.getId());
+        Subtask subtask1 = new Subtask("s1", "s1", Status.Done, epic.getId());
+        Subtask subtask2 = new Subtask("s2", "s2", Status.New, epic.getId());
+        Subtask subtask3 = new Subtask("s3", "s3", Status.Done, epic.getId());
         taskManager.addNewSubtask(subtask1);
         taskManager.addNewSubtask(subtask2);
         taskManager.addNewSubtask(subtask3);
-        Assertions.assertTrue(epic.getStatus().equals(Status.IN_PROGRESS));
+        Assertions.assertEquals(epic.getStatus(), Status.Done);
     }
 
     @Test
     public void statusDefinitionTestAllSubtasksInProgress(){
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
-        Subtask subtask1 = new Subtask("s1", "s1", Status.IN_PROGRESS, epic.getId());
-        Subtask subtask2 = new Subtask("s2", "s2", Status.IN_PROGRESS, epic.getId());
-        Subtask subtask3 = new Subtask("s3", "s3", Status.IN_PROGRESS, epic.getId());
+        Subtask subtask1 = new Subtask("s1", "s1", Status.In_progress, epic.getId());
+        Subtask subtask2 = new Subtask("s2", "s2", Status.In_progress, epic.getId());
+        Subtask subtask3 = new Subtask("s3", "s3", Status.In_progress, epic.getId());
         taskManager.addNewSubtask(subtask1);
         taskManager.addNewSubtask(subtask2);
         taskManager.addNewSubtask(subtask3);
-        Assertions.assertTrue(epic.getStatus().equals(Status.IN_PROGRESS));
+        Assertions.assertEquals(epic.getStatus(), Status.In_progress);
     }
 }

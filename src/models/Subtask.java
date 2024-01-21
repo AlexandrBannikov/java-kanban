@@ -2,8 +2,8 @@ package models;
 
 import model.enums.Status;
 import model.enums.TasksType;
-
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Subtask extends Task {
     private int epicId;
@@ -21,6 +21,10 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    public Subtask(String name, String description, Status status) {
+        super(name, description, status);
+    }
+
     public Subtask(String name, String description, Status status, int epicId, int duration, LocalDateTime startTime) {
         super(name, description, status, duration, startTime);
         this.epicId = epicId;
@@ -29,7 +33,7 @@ public class Subtask extends Task {
     @Override
     public String toString() {
         return id +
-                "," + TasksType.SUBTASK +
+                "," + TasksType.Subtask +
                 ", " + name +
                 ", " + status +
                 ", " + description +
@@ -44,7 +48,7 @@ public class Subtask extends Task {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Subtask subtask = (Subtask) o;
-        return id == subtask.id && name.equals(subtask.name) && description.equals(subtask.description)
+        return Objects.equals(id, subtask.id) && name.equals(subtask.name) && description.equals(subtask.description)
                 && status.equals(subtask.status) && epicId == subtask.epicId && duration == subtask.duration &&
                 startTime.equals(subtask.startTime);
     }

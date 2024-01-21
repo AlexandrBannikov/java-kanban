@@ -2,8 +2,8 @@ package models;
 
 import model.enums.Status;
 import model.enums.TasksType;
-
 import java.time.LocalDateTime;
+import java.util.Objects;
 /*
 Объект Task(задача), содержит в себе идентификационный номер, имя, описание, и статус самой задачи.
 Создается через Task task = new Task();
@@ -67,7 +67,7 @@ public class Task implements Comparable<Task> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && name.equals(task.name) && description.equals(task.description) && status.equals(task.status)
+        return Objects.equals(id, task.id) && name.equals(task.name) && description.equals(task.description) && status.equals(task.status)
                 && duration == task.duration && startTime.equals(task.startTime);
     }
 
@@ -75,7 +75,7 @@ public class Task implements Comparable<Task> {
     @Override
     public String toString() { // Динамический полиморфизм - вызов переопределенных методов, переопределение методов.
         return  id +
-                "," + TasksType.TASK +
+                "," + TasksType.Task +
                 ", " + name +
                 ", " + status +
                 ", " + description +

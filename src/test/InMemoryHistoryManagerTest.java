@@ -15,31 +15,30 @@ public class InMemoryHistoryManagerTest {
     public static HistoryManager historyManager;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         historyManager = Managers.getDefaultHistory();
     }
 
     @Test
-    public void emptyHistory(){
+    public void emptyHistory() {
         final List<Task> history = historyManager.getHistory();
         Assertions.assertTrue(history.isEmpty(), "История не пустая.");
     }
 
     @Test
-    public void addTask(){
-        Task task = new Task("t", "t", Status.NEW);
+    public void addTask() {
+        Task task = new Task("t", "t", Status.New);
         historyManager.addTask(task);
         final List<Task> history = historyManager.getHistory();
         Assertions.assertEquals(1, history.size());
     }
-
     @Test
-    public void deletion(){
-        Task task = new Task("t", "t", Status.NEW);
-        Task task2 = new Task("t2", "t2", Status.NEW);
-        Epic epic = new Epic("t2", "t2", Status.NEW);
-        Task task3 = new Task("t3", "t3", Status.NEW);
-        Task task4 = new Task("t4", "t4", Status.NEW);
+    public void deletion() {
+        Task task = new Task("t", "t", Status.New);
+        Task task2 = new Task("t2", "t2", Status.New);
+        Epic epic = new Epic("t2", "t2", Status.New);
+        Task task3 = new Task("t3", "t3", Status.New);
+        Task task4 = new Task("t4", "t4", Status.New);
         historyManager.addTask(task);
         historyManager.addTask(task2);
         historyManager.addTask(epic);

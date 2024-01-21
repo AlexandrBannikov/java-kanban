@@ -7,7 +7,7 @@ import models.Task;
 import java.util.ArrayList;
 import java.util.List;
 /*
-    Класс TaskManager интерфейс.
+    Интерфейс TaskManager.
     Для этого добавьте метод getHistory() в  TaskManager и реализуйте его —
     он должен возвращать последние 10 просмотренных задач.
     Просмотром будем считаться вызов у менеджера методов получения задачи по идентификатору  — getTask(),

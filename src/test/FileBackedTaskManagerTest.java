@@ -4,7 +4,6 @@ import model.enums.Status;
 import models.Epic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import services.taskmanager.CSVManager;
 import services.taskmanager.FileBackedTasksManager;
 
 import java.io.File;
@@ -12,38 +11,40 @@ import java.io.File;
 import static services.taskmanager.FileBackedTasksManager.loadFromFile;
 
 public class FileBackedTaskManagerTest extends TaskManagerTest {
-    CSVManager csvManager;
+    //CSVManager csvManager;
     @Override
     public FileBackedTasksManager createNewManager() {
         FileBackedTasksManager manager = new FileBackedTasksManager(new File("resources/file.csv"));
         return manager;
     }
     @Test
-    public void emptyTaskList(){
+    public void whenEmptyTaskList(){
         taskManager.deleteTasks();
         taskManager.deleteEpics();
         taskManager.deleteSubtasks();
-        File file = new File("file.csv");
+        File file = new File("resources/file.csv");
         FileBackedTasksManager manager2  = loadFromFile(file);
-        Assertions.assertTrue(manager2.getEpics().equals(taskManager.getEpics()));
+        Assertions.assertEquals(manager2.getEpics(), taskManager.getEpics());
     }
 
     @Test
     public void loadFromFileWithOneEpicNoSubtasksNoHistory() {
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
-        File file = new File("file.csv");
+        taskManager.deleteEpics();
+        File file = new File("resources/file.csv");
         FileBackedTasksManager manager2  = loadFromFile(file);
-        Assertions.assertTrue(manager2.getEpics().equals(taskManager.getEpics()));
+        Assertions.assertEquals(manager2.getEpics(), taskManager.getEpics());
     }
 
     @Test
     public void loadFromFileWithOneEpicNoSubtasksWithHistory() {
-        Epic epic = new Epic("e", "e", Status.NEW);
+        Epic epic = new Epic("e", "e", Status.New);
         taskManager.addNewEpic(epic);
         taskManager.getEpicById(epic.getId());
-        File file = new File("file.csv");
+        taskManager.deleteEpics();
+        File file = new File("resources/file.csv");
         FileBackedTasksManager manager2  = loadFromFile(file);
-        Assertions.assertTrue(manager2.getEpics().equals(taskManager.getEpics()));
+        Assertions.assertEquals(manager2.getEpics(), taskManager.getEpics());
     }
 }

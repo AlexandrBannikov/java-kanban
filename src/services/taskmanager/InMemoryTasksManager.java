@@ -9,7 +9,6 @@ import util.Managers;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
 /*
     Динамический полиморфизм это переопределение метода
     Статический полиморфизм это изменение параметров метода - перегрузка метода
@@ -27,7 +26,6 @@ public class InMemoryTasksManager implements TasksManager {
     public TreeSet<Task> getPrioritizedTasks() {
         return taskTreeSet;
     }
-
     /*
         Получить список всех задач, Task, Epic, Subtask.
         Возвращаем список значений задач.
@@ -142,18 +140,18 @@ public class InMemoryTasksManager implements TasksManager {
         Epic epic = epics.get(epicID);// это из эпика вытащили нужный объект эпика который приходит в параметрах
         HashSet<Status> setStatusEpic = new HashSet<>();
         if (epic.getSubtaskIds() == null || epic.getSubtaskIds().isEmpty()) { // проверили если список пуст то установили статус NEW
-            epic.setStatus(Status.NEW);
+            epic.setStatus(Status.New);
         } else {
             for (Integer i : epic.getSubtaskIds()) {
                 Subtask subtask = subtasks.get(i);
                 setStatusEpic.add(subtask.getStatus());
             }
-            if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.NEW)) {
-                epic.setStatus(Status.NEW);
-            } else if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.DONE)) {
-                epic.setStatus(Status.DONE);
+            if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.New)) {
+                epic.setStatus(Status.New);
+            } else if (setStatusEpic.size() == 1 && setStatusEpic.contains(Status.Done)) {
+                epic.setStatus(Status.Done);
             } else {
-                epic.setStatus(Status.IN_PROGRESS);
+                epic.setStatus(Status.In_progress);
             }
 
         }
@@ -224,14 +222,12 @@ public class InMemoryTasksManager implements TasksManager {
 
     @Override
     public void deleteSubtaskById(int id) {
-        int epicID = subtasks.get(id).getEpicId();
-        if (taskTreeSet.contains(subtasks.get(id))) {
-            taskTreeSet.remove(subtasks.get(id));
-        }
-        epics.get(epicID).getSubtaskIds().remove(id);
+        epics.get(subtasks.get(id).getEpicId()).getSubtaskIds().remove(id);
         subtasks.remove(id);
-        updateEpicStatus(epicID);
-        updateEpicTimeParams(epicID);
+        updateEpicStatus(epics.get(getSubtaskById(id).getEpicId()).getId());
+        if(!subtasks.isEmpty()) {
+            updateEpicStatus(epics.get(getSubtaskById(id).getEpicId()).getId());
+        }
         historyManager.remove(id);
     }
 
@@ -291,7 +287,7 @@ public class InMemoryTasksManager implements TasksManager {
         for (Task task2 : taskTreeSet) {
             if (!(task1.getStartTime().isAfter(task2.getStartTime().plusMinutes(task2.getDuration()))
                     || task1.getStartTime().plusMinutes(task1.getDuration()).isBefore(task2.getStartTime()))) {
-                if (task1.getId() != task2.getId()) {
+                if (!Objects.equals(task1.getId(), task2.getId())) {
                     return false;
                 }
             }
