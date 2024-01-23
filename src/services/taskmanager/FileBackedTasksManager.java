@@ -17,38 +17,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
-
+/*
+    У меня в этом классе мейне вроде бы не много действий происходит, поэтому
+    пишу что происходит прямо при создании объекта.
+    И все записывается в файл csv, наверное оттуда удобнее читать и смотреть что происходит.
+ */
 
 public class FileBackedTasksManager extends InMemoryTasksManager implements TasksManager {
-    File bootFile;
+    final File bootFile;
     public FileBackedTasksManager(File file) {
         this.bootFile = file;
     }
     public static void main(String[] args) {
         FileBackedTasksManager manager = new FileBackedTasksManager(new File("resources/file.csv"));
-//====================================================================================================================
-        Task task1 = new Task("Task #1", "Description task1", Status.New, 10, LocalDateTime
+       // System.out.println("Создаем объект Task");
+        Task task1 = new Task("Создаем задачу Task #1", "Описание Description task1", Status.New, 10, LocalDateTime
                 .of(2006,1,1,1,0));
         manager.addNewTask(task1);
         manager.getTaskById(1);
 
-//====================================================================================================================
-        Epic epic1 = new Epic("Epic №1", "Big Epic 1", Status.New);
+
+        Epic epic1 = new Epic("Создаем задачу Epic №1", " Большая основная задача Big Epic 1", Status.New);
         manager.addNewEpic(epic1);
         manager.getEpicById(2);
-//====================================================================================================================
+
         Subtask subtask1 =
-                new Subtask("Subtask #1", "Description Subtask#1", Status.New, epic1.getId()
+                new Subtask("Создаем подзадачу Subtask #1", "Описание подзадачи Description Subtask#1", Status.New, epic1.getId()
                         , 15,
                 LocalDateTime.of(2014,2,1,0,30));
-        Subtask subtask2 = new Subtask("Subtask #2", "Description Subtask#2", Status.New, epic1.getId()
+        Subtask subtask2 = new Subtask("Создаем подзадачу Subtask #2", "Описание подзадачи Description Subtask#2", Status.New, epic1.getId()
                 , 13,
                 LocalDateTime.of(2015,6,1,0,35));
         manager.addNewSubtask(subtask1);
         manager.getSubtaskById(3);
         manager.addNewSubtask(subtask2);
         manager.getSubtaskById(4);
-//====================================================================================================================
+
         System.out.println(manager.getHistory());
     }
     public void save() {
@@ -79,7 +83,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         try {
             FileBackedTasksManager loadedManager = new FileBackedTasksManager(file);
             String contentWithHead = Files.readString(Path.of(file.getPath()));
-            String content = contentWithHead.substring(56);
+            String content = contentWithHead.substring(57);
             String[] stringsFromContent = content.split("\r\n");
 
             int i = 0;
@@ -181,7 +185,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         return listResult;
     }
 
-    //========================== override ================================================
+
 
     @Override
     public Task getTaskById(int id) {

@@ -222,13 +222,11 @@ public class InMemoryTasksManager implements TasksManager {
 
     @Override
     public void deleteSubtaskById(int id) {
-        epics.get(subtasks.get(id).getEpicId()).getSubtaskIds().remove(id);
-        subtasks.remove(id);
-        updateEpicStatus(epics.get(getSubtaskById(id).getEpicId()).getId());
-        if(!subtasks.isEmpty()) {
-            updateEpicStatus(epics.get(getSubtaskById(id).getEpicId()).getId());
-        }
         historyManager.remove(id);
+        if (subtasks.containsKey(id)) {
+            epics.get(subtasks.get(id).getEpicId()).getSubtaskIds().remove((Integer) id);
+            subtasks.remove(id);
+        }
     }
 
     /*
