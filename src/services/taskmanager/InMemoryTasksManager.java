@@ -32,17 +32,29 @@ public class InMemoryTasksManager implements TasksManager {
          */
     @Override
     public List<Task> getTasks() {
-        return new ArrayList<>(tasks.values());
+        if (!tasks.isEmpty()) {
+            return new ArrayList<>(tasks.values());
+        }
+        System.out.println("Tasks отсутствуют!");
+        return null;
     }
 
     @Override
     public List<Subtask> getSubtasks() {
-        return new ArrayList<>(subtasks.values());
+        if (!subtasks.isEmpty()) {
+            return new ArrayList<>(subtasks.values());
+        }
+        System.out.println("Subtasks отсутствуют!");
+        return null;
     }
 
     @Override
     public List<Epic> getEpics() {
-        return new ArrayList<>(epics.values());
+        if (!epics.isEmpty()) {
+            return new ArrayList<>(epics.values());
+        }
+        System.out.println("Epics отсутствуют!");
+        return null;
     }
 
     @Override
@@ -92,11 +104,13 @@ public class InMemoryTasksManager implements TasksManager {
     @Override
     public int addNewTask(Task task) {
         if (task.getId() == null) {
+            System.out.println("Нет такого Task!");
             return 0;
         }
         if (timeValidation(task)) {
             tasks.put(task.getId(), task);
             taskTreeSet.add(task);
+            System.out.println("Создан Task c id - "+ task.getId());
             return task.getId();
         }
         return -1;
@@ -104,7 +118,11 @@ public class InMemoryTasksManager implements TasksManager {
 
     @Override
     public int addNewEpic(Epic epic) {
+        if (epic.getId() == null) {
+            System.out.println("Нет такого Epic!");
+        }
         epics.put(epic.getId(), epic);
+        System.out.println("Создан Epic с id - " + epic.getId());
         return epic.getId();
     }
 
@@ -114,6 +132,7 @@ public class InMemoryTasksManager implements TasksManager {
     @Override
     public int addNewSubtask(Subtask subtask) {
         if (subtask.getId() == null) {
+            System.out.println("Нет такой подзадачи!");
             return 0;
         }
         if (timeValidation(subtask)) {
@@ -126,6 +145,7 @@ public class InMemoryTasksManager implements TasksManager {
                 updateEpicStatus(epic.getId());
                 updateEpicTimeParams(epic.getId());
                 updateEpic(epic);
+                System.out.println("Создан Subtask с id - " + subtask.getId());
                 return subtask.getId();
             }
         }
@@ -167,6 +187,7 @@ public class InMemoryTasksManager implements TasksManager {
             tasks.put(task.getId(), task);
         }
         taskTreeSet.add(task);
+        System.out.println("Task обновлен.");
     }
 
     @Override

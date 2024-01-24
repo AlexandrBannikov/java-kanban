@@ -1,6 +1,4 @@
 id,type,name,status,description,duration,start_time,epic
 1,Task, Создаем задачу Task #1, New, Описание Description task1, 10, 2006-01-01T01:00
-2,Epic, Создаем задачу Epic №1, New,  Большая основная задача Big Epic 1, 28, 2014-02-01T00:30
-3,Subtask, Создаем подзадачу Subtask #1, New, Описание подзадачи Description Subtask#1, 15, 2014-02-01T00:30, 2
-4,Subtask, Создаем подзадачу Subtask #2, New, Описание подзадачи Description Subtask#2, 13, 2015-06-01T00:35, 2
-1,2,3,4
+3,Epic, Создаем задачу Epic №1, New,  Большая основная задача Big Epic 1, 0, 2200-01-01T00:00
+1,3
