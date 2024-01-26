@@ -1,6 +1,9 @@
 package services.taskmanager;
 
 import exception.ManagerSaveException;
+import httpmanager.HTTPTaskServer;
+import httpmanager.HTTPTasksManager;
+import httpmanager.KVServer;
 import model.enums.Status;
 import models.Epic;
 import models.Subtask;
@@ -15,17 +18,31 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 import static java.lang.Integer.parseInt;
 
 public class FileBackedTasksManager extends InMemoryTasksManager implements TasksManager {
-    final File bootFile;
+    File bootFile;
+    public FileBackedTasksManager() {
+    }
     public FileBackedTasksManager(File file) {
         this.bootFile = file;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FileBackedTasksManager manager = new FileBackedTasksManager(new File("resources/file.csv"));
 
+        KVServer kvServer = new KVServer();
+        kvServer.start();
+        HTTPTasksManager manager1 = new HTTPTasksManager("http://localhost:8080");
+        HTTPTaskServer httpTaskServer = new HTTPTaskServer(manager);
+        httpTaskServer.start();
+
+        System.out.println(manager.getTasks());
+        httpTaskServer.stop();
+        //HTTPTasksManager manager1 = new HTTPTasksManager("http://localhost:8080");
+        //HTTPTaskServer httpTaskServer1 = new HTTPTaskServer(manager1);
+        System.out.println(manager1.getTasks());
         System.out.println("Создаем объекты задач!");
         Task task1 = new Task("Создаем задачу Task #1"
                 , "Описание Description task1", Status.New
@@ -67,7 +84,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         manager.addNewSubtask(subtask3);
 
         System.out.println();
-        //System.out.println(manager.getHistory());
         System.out.println("Получаем список задач Task!");
         for (Task task : manager.getTasks()) {
             System.out.println(task);
@@ -100,10 +116,11 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         manager.deleteTaskById(2);
         System.out.println("Список задач Task - " + manager.getTasks());
         manager.updateTask(task2);
+        Subtask subtask = new Subtask("Подзадача № 5", "Описание подзадачи Epic",Status.New, epic1.getId());
+        manager.addNewSubtask(subtask);
         System.out.println(manager.getHistory());
     }
     public void save() {
-
         String title = "id,type,name,status,description,duration,start_time,epic";
         try {
             PrintWriter writer = new PrintWriter(bootFile);
@@ -234,7 +251,10 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         return listResult;
     }
 
-
+    @Override
+    public TreeSet<Task> getPrioritizedTasks() {
+        return super.getPrioritizedTasks();
+    }
 
     @Override
     public Task getTaskById(int id) {

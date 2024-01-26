@@ -9,11 +9,14 @@ import org.junit.jupiter.api.Test;
 import services.taskmanager.TasksManager;
 import util.Managers;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 class EpicTest {
     public static TasksManager taskManager;
 
     @BeforeEach
-    public void createNewManager(){
+    public void createNewManager() throws IOException, URISyntaxException, InterruptedException {
         taskManager = Managers.getDefault();
     }
 

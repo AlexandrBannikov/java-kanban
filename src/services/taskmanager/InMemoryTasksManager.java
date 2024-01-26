@@ -16,12 +16,12 @@ import java.util.*;
  */
 
 public class InMemoryTasksManager implements TasksManager {
-    protected final HashMap<Integer, Task> tasks = new HashMap<>();// Параметрический полиморфизм
+    public final HashMap<Integer, Task> tasks = new HashMap<>();// Параметрический полиморфизм
     //способность принимать любого вида объекты и использовать их
-    protected final HashMap<Integer, Epic> epics = new HashMap<>();
-    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    public final HashMap<Integer, Epic> epics = new HashMap<>();
+    public final HashMap<Integer, Subtask> subtasks = new HashMap<>();
     final HistoryManager historyManager = Managers.getDefaultHistory();
-    TreeSet<Task> taskTreeSet = new TreeSet<>();
+    public final TreeSet<Task> taskTreeSet = new TreeSet<>();
 
     public TreeSet<Task> getPrioritizedTasks() {
         return taskTreeSet;
@@ -32,29 +32,17 @@ public class InMemoryTasksManager implements TasksManager {
          */
     @Override
     public List<Task> getTasks() {
-        if (!tasks.isEmpty()) {
-            return new ArrayList<>(tasks.values());
-        }
-        System.out.println("Tasks отсутствуют!");
-        return null;
+        return new ArrayList<>(tasks.values());
     }
 
     @Override
     public List<Subtask> getSubtasks() {
-        if (!subtasks.isEmpty()) {
-            return new ArrayList<>(subtasks.values());
-        }
-        System.out.println("Subtasks отсутствуют!");
-        return null;
+        return new ArrayList<>(subtasks.values());
     }
 
     @Override
     public List<Epic> getEpics() {
-        if (!epics.isEmpty()) {
-            return new ArrayList<>(epics.values());
-        }
-        System.out.println("Epics отсутствуют!");
-        return null;
+        return new ArrayList<>(epics.values());
     }
 
     @Override
@@ -118,11 +106,7 @@ public class InMemoryTasksManager implements TasksManager {
 
     @Override
     public int addNewEpic(Epic epic) {
-        if (epic.getId() == null) {
-            System.out.println("Нет такого Epic!");
-        }
         epics.put(epic.getId(), epic);
-        System.out.println("Создан Epic с id - " + epic.getId());
         return epic.getId();
     }
 
@@ -145,7 +129,6 @@ public class InMemoryTasksManager implements TasksManager {
                 updateEpicStatus(epic.getId());
                 updateEpicTimeParams(epic.getId());
                 updateEpic(epic);
-                System.out.println("Создан Subtask с id - " + subtask.getId());
                 return subtask.getId();
             }
         }

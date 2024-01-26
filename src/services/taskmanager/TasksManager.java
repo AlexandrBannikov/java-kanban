@@ -6,6 +6,7 @@ import models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 /*
     Интерфейс TaskManager.
     Для этого добавьте метод getHistory() в  TaskManager и реализуйте его —
@@ -23,7 +24,7 @@ public interface TasksManager {
     List<Epic> getEpics();
     ArrayList<Subtask> getEpicSubtasks(int epicID);
     ArrayList<Subtask> getSubtaskOfEpic(Epic epic);
-
+    TreeSet<Task> getPrioritizedTasks();
     /*
     Получить задачу по id
      */
