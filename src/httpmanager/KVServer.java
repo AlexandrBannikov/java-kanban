@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KVServer {
-    public static final int PORT = 8080;
+    public static final int PORT = 8078;
     private final String apiToken;
     private final HttpServer server;
     private final Map<String, String> data = new HashMap<>();
@@ -21,7 +21,7 @@ public class KVServer {
         server = HttpServer.create(new InetSocketAddress("localhost", PORT), 0);
         server.createContext("/register", this::register);
         server.createContext("/save", this::save);
-        server.createContext("/register", this::load);
+        server.createContext("/load", this::load);
     }
     private void load(HttpExchange exchange) throws IOException {
         try {

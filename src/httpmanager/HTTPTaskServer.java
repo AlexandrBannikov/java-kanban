@@ -9,12 +9,14 @@ import models.Subtask;
 import models.Task;
 
 import services.taskmanager.TasksManager;
+import util.Managers;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
+import java.net.URISyntaxException;
 import java.util.regex.Pattern;
 
 import static jdk.internal.util.xml.XMLStreamWriter.DEFAULT_CHARSET;
@@ -24,11 +26,19 @@ public class HTTPTaskServer {
     private final HttpServer server;
     private final Gson gson;
     public TasksManager manager;
+    public HTTPTaskServer() throws IOException, URISyntaxException, InterruptedException {
+        this(Managers.getDefault());
+    }
     public HTTPTaskServer(TasksManager manager) throws IOException {
-        this.server = HttpServer.create(new InetSocketAddress("localhost", PORT),0);
+        server = HttpServer.create(new InetSocketAddress("localhost", PORT),0);
         this.manager = manager;
         gson = new Gson();
         server.createContext("/tasks", this::handle);
+    }
+
+    public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
+        final HTTPTaskServer server = new HTTPTaskServer();
+        server.start();
     }
     public void start() {
         System.out.println("Запускаем сервер на порту " + PORT);

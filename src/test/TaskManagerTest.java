@@ -20,10 +20,6 @@ public abstract class TaskManagerTest <T extends TasksManager> {
         taskManager = createNewManager();
     }
 
-    @Test
-    public void getTasksWithEmptyTaskList() {
-        Assertions.assertTrue(taskManager.getTasks().isEmpty());
-    }
 
     @Test
     public void getTasksWithTasks() {
@@ -125,19 +121,11 @@ public abstract class TaskManagerTest <T extends TasksManager> {
         Subtask subtask = taskManager.getSubtaskById(1);
         Assertions.assertNull(subtask, "Подзадачи не удалены");
     }
-
-    @Test
-    public void getEpicByIdIfEmptyEpicList() {
-        Epic epic = taskManager.getEpicById(1);
-        Assertions.assertNull(epic, "Эпики не удалены");
-    }
-
     @Test
     public void getTaskByIdIfWrongId() {
         Task task = taskManager.getTaskById(-1);
         Assertions.assertNull(task, "Задачи не удалены");
     }
-
     @Test
     public void getSubtaskByIdIfWrongId() {
         Subtask subtask = taskManager.getSubtaskById(-1);

@@ -1,8 +1,6 @@
 package services.taskmanager;
 
 import exception.ManagerSaveException;
-import httpmanager.HTTPTaskServer;
-import httpmanager.HTTPTasksManager;
 import httpmanager.KVServer;
 import model.enums.Status;
 import models.Epic;
@@ -34,15 +32,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
 
         KVServer kvServer = new KVServer();
         kvServer.start();
-        HTTPTasksManager manager1 = new HTTPTasksManager("http://localhost:8080");
-        HTTPTaskServer httpTaskServer = new HTTPTaskServer(manager);
-        httpTaskServer.start();
-
-        System.out.println(manager.getTasks());
-        httpTaskServer.stop();
-        //HTTPTasksManager manager1 = new HTTPTasksManager("http://localhost:8080");
-        //HTTPTaskServer httpTaskServer1 = new HTTPTaskServer(manager1);
-        System.out.println(manager1.getTasks());
         System.out.println("Создаем объекты задач!");
         Task task1 = new Task("Создаем задачу Task #1"
                 , "Описание Description task1", Status.New
